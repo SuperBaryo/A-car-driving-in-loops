@@ -1,0 +1,58 @@
+using System;
+using System.Collections;
+using System.Threading;
+using UnityEngine;
+
+public class MoveCar : MonoBehaviour
+{
+    public float CarSpeed = 25;
+
+    // Update is called once per frame
+    void Update()
+    {
+        DriveCar();
+    }
+
+    void DriveCar()
+    {
+        transform.Translate(0, 0, CarSpeed * Time.deltaTime);
+
+        GameObject backWheels = GameObject.FindWithTag("back");
+        GameObject frontWheels = GameObject.FindWithTag("front");
+
+        backWheels.transform.Rotate(0f, 0f, -CarSpeed * 0.5f);
+        frontWheels.transform.Rotate(0f, 0f, -CarSpeed * 0.5f);
+
+        if (transform.position.x >= 122)
+        {
+            disappear("back wheels", "backlights", "car", "front wheels", "headlights", "mirrors");
+        }
+
+        if (transform.position.x >= 520)
+        {
+            appear("back wheels", "backlights", "car", "front wheels", "headlights", "mirrors");
+        }
+    }
+
+    void disappear(string go, string go2, string go3, string go4, string go5, string go6)
+    {
+        transform.Find(go).GetComponent<MeshRenderer>().enabled = false;
+        transform.Find(go2).GetComponent<MeshRenderer>().enabled = false;
+        transform.Find(go3).GetComponent<MeshRenderer>().enabled = false;
+        transform.Find(go4).GetComponent<MeshRenderer>().enabled = false;
+        transform.Find(go5).GetComponent<MeshRenderer>().enabled = false;
+        transform.Find(go6).GetComponent<MeshRenderer>().enabled = false;
+    }
+
+    void appear(string gom, string gom2, string gom3, string gom4, string gom5, string gom6)
+    {
+        transform.position = new Vector3(-117.4f, -0.76f, 55f);
+
+        transform.Find(gom).GetComponent<MeshRenderer>().enabled = true;
+        transform.Find(gom2).GetComponent<MeshRenderer>().enabled = true;
+        transform.Find(gom3).GetComponent<MeshRenderer>().enabled = true;
+        transform.Find(gom4).GetComponent<MeshRenderer>().enabled = true;
+        transform.Find(gom5).GetComponent<MeshRenderer>().enabled = true;
+        transform.Find(gom6).GetComponent<MeshRenderer>().enabled = true;
+    }
+}
